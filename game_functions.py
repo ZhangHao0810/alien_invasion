@@ -1,0 +1,32 @@
+import sys
+
+import pygame
+
+
+def check_events():
+    # 响应鼠标和键盘事件
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+
+
+def check_events(ship):
+    # 响应鼠标和键盘事件
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+        elif event.type == pygame.KEYDOWN: #类型是按键
+            if event.key == pygame.K_RIGHT:#右键
+                ship.moving_right = True
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_RIGHT:
+                ship.moving_right = False
+
+def update_screen(ai_settings, screen, ship):
+    """更新屏幕的图像, 并切换到新屏幕"""
+    # 每次循环重绘屏幕
+    screen.fill(ai_settings.bg_color)
+    ship.blitme()
+
+    # 让最近绘制的屏幕可见
+    pygame.display.flip()

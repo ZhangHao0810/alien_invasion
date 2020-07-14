@@ -28,6 +28,17 @@ class Ship():
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
 
+        # 移动标志( 这样的类似属性的东西, 要放在Init 函数中)
+        self.moving_right = False
+        self.moving_left = False
+
+    def update(self):
+        """根据移动标志调整飞船的位置"""
+        if self.moving_right:
+            self.rect.centerx+=1
+        if self.moving_left:
+            self.rect.centerx-=1
+
     def blitme(self):
-        """在指定位置绘制飞船"""
+        """在指定位置绘制飞船, blit() 是内置的函数  参数是图像对象和元素位置."""
         self.screen.blit(self.image, self.rect)
