@@ -2,9 +2,10 @@ import pygame
 
 
 class Ship():
-    def __init__(self, screen):
+    def __init__(self, ai_settings, screen):
         """初始化飞船并设定其初始位置"""
         self.screen = screen
+        self.ai_settings = ai_settings
         """
         首先，我们导入了模块pygame 。Ship 的方法__init__() 接受两个参数：引用self 和screen ，其中后者指定了要将飞船绘制到什么地方。为加载图像，我们调用
         了pygame.image.load() 。这个函数返回一个表示飞船的surface，而我们将这个surface存储到了self.image 中。
@@ -28,16 +29,23 @@ class Ship():
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
 
+        # 在飞船的属性center中存储小数值
+        self.center = float(self.rect.centerx)
+
         # 移动标志( 这样的类似属性的东西, 要放在Init 函数中)
         self.moving_right = False
         self.moving_left = False
 
     def update(self):
         """根据移动标志调整飞船的位置"""
-        if self.moving_right:
-            self.rect.centerx+=1
-        if self.moving_left:
-            self.rect.centerx-=1
+        # 更新飞船的center值, 而不是rect
+        if self.moving_right and self.rect.right < self.screen_rect.right:
+            self.center += self.ai_settings.ship_speed_factor
+        if self.moving_left and self.rect.left > 0:
+            self.center -= self.ai_settings.ship_speed_factor
+
+        # 根据self.center更新rect对象
+        self.rect.centerx = self.center
 
     def blitme(self):
         """在指定位置绘制飞船, blit() 是内置的函数  参数是图像对象和元素位置."""
