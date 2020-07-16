@@ -48,5 +48,5 @@ class Ship():
         self.rect.centerx = self.center
 
     def blitme(self):
-        """在指定位置绘制飞船, blit() 是内置的函数  参数是图像对象和元素位置."""
+        """在指定位置绘制飞船, blit() 是内置的函数  参数是图像对象和矩形对象."""
         self.screen.blit(self.image, self.rect)
