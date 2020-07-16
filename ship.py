@@ -50,3 +50,6 @@ class Ship():
     def blitme(self):
         """在指定位置绘制飞船, blit() 是内置的函数  参数是图像对象和矩形对象."""
         self.screen.blit(self.image, self.rect)
+    def center_ship(self):
+        """让飞船在屏幕上居中"""
+        self.center = self.screen_rect.centerx
